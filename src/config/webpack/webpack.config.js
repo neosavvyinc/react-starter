@@ -9,7 +9,7 @@ const SRC_DIR = path.resolve(__dirname, '../../../src');
 const webpackConfig = {
     devtool: 'eval',
     entry: [
-        SRC_DIR + '/js/main.js'
+        SRC_DIR + '/js/routes.js'
     ],
     output: {
         path: DIST_DIR,
@@ -49,6 +49,9 @@ const webpackConfig = {
             title: 'NS React Seed',
             favicon: path.join(SRC_DIR, '/assets/images/favicon.png'),
             template: path.join(SRC_DIR, '/index.html')
+        }),
+        new webpack.ProvidePlugin({
+            "React": "react"
         })
     ]
 };

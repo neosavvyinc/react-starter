@@ -1,0 +1,10 @@
+.ns-repo-lookup {
+  display: flex;
+  flex: 1;
+  flex-direction: column;
+  align-items: center;
+
+  .header {
+    color: $brand-primary;
+  }
+}

@@ -4,7 +4,7 @@
   "description": "React + React Router + Webpack 2 + Mocha + Chai",
   "main": "dist/index.html",
   "scripts": {
-    "start": "NODE_ENV=development webpack-dev-server --config src/config/webpack/webpack.config.js --inline --progress"
+    "start": "NODE_ENV=development webpack-dev-server --config src/config/webpack/webpack.config.js --inline --progress --history-api-fallback"
   },
   "repository": {
     "type": "git",
@@ -34,6 +34,7 @@
     "node-sass": "3.8.0",
     "react": "15.2.1",
     "react-dom": "15.2.1",
+    "react-router": "2.6.0",
     "sass-loader": "4.0.0",
     "style-loader": "0.13.1",
     "webpack": "2.1.0-beta.20",
