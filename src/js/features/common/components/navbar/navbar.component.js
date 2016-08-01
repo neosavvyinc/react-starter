@@ -1,7 +1,7 @@
-import ActiveLink  from '../activeLink/activeLink.component';
+import ActiveLink from '../activeLink/activeLink.component';
 
 export default class NavbarComponent extends React.Component {
-    render () {
+    render() {
         return (
             <nav className="ns-navbar">
                 <ul role="nav">
@@ -9,6 +9,6 @@ export default class NavbarComponent extends React.Component {
                     <li><ActiveLink to="/repoLookup">Repo Lookup</ActiveLink></li>
                 </ul>
             </nav>
-        )
+        );
     }
 }

@@ -15,4 +15,4 @@ const routes = (
     </Router>
 );
 
-render(routes, document.getElementById("react-root"));
+render(routes, document.getElementById('react-root'));
