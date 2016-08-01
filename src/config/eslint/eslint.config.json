@@ -9,7 +9,8 @@
   },
   "globals": {
     "React": true,
-    "_": true
+    "_": true,
+    "Promise": true
   },
   "parser": "babel-eslint",
   "rules": {

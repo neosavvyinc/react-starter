@@ -3,8 +3,34 @@
   flex: 1;
   flex-direction: column;
   align-items: center;
+  font-family: Arial, Helvetica, sans-serif;
 
-  .header {
+  h1 {
     color: $brand-primary;
+  }
+
+  input {
+    padding: 3px;
+    width: 150px;
+    background: $brand-white;
+    border: none;
+    border-bottom: 2px $brand-primary solid;
+    border-radius: 5px;
+    color: $brand-black;
+    text-align: center;
+    margin-right: 20px;
+    outline-color: $brand-primary;
+    outline-offset: 3px;
+  }
+
+  button {
+    background: $brand-white;
+    border: none;
+    border-bottom: 2px $brand-primary solid;
+    border-radius: 5px;
+    color: $brand-black;
+    font-weight: bold;
+    outline-color: $brand-primary;
+    outline-offset: 3px;
   }
 }
