@@ -1,0 +1,29 @@
+.ns-user-display-container {
+  .content-container {
+    width: 50%;
+    min-width: 300px;
+    margin: 25px auto;
+    border-radius: 20px 0 20px 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: $brand-white;
+
+    h4 {
+      margin: 5px;
+      padding: 0;
+      color: $brand-primary;
+    }
+
+    img {
+      width: 65px;
+      height: auto;
+      border-radius: 20px 0 20px 0;
+      margin-right: 20px;
+    }
+
+    .textbox {
+      background-color: $brand-white;
+    }
+  }
+}

@@ -1,3 +1,8 @@
+import { useStrict } from 'mobx';
+// globally set mobx to strict mode
+useStrict(true);
+// while in strict mode, mobx will throw errors if non-actions try to alter any stored state
+
 import '../assets/styles/main.scss';
 
 export default class AppComponent extends React.Component {
