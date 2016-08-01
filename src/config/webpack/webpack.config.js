@@ -51,7 +51,8 @@ const webpackConfig = {
             template: path.join(SRC_DIR, '/index.html')
         }),
         new webpack.ProvidePlugin({
-            "React": "react"
+            "React": "react",
+            "_": "lodash"
         })
     ]
 };

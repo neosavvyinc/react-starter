@@ -1,5 +1,5 @@
 export default class HomeComponent extends React.Component {
-    render () {
+    render() {
         return (
             <div className="ns-home">
                 <h1 className="title">Home</h1>
@@ -7,6 +7,6 @@ export default class HomeComponent extends React.Component {
                 <h5>courtesy of neosavvy</h5>
                 <a href="http://www.neosavvy.com"><img src="src/assets/images/logo.png" /></a>
             </div>
-        )
+        );
     }
 }
