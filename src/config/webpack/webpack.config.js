@@ -9,6 +9,7 @@ const SRC_DIR = path.resolve(__dirname, '../../../src');
 const webpackConfig = {
     devtool: 'eval',
     entry: [
+        'whatwg-fetch',
         SRC_DIR + '/js/routes.js'
     ],
     output: {
@@ -52,7 +53,8 @@ const webpackConfig = {
         }),
         new webpack.ProvidePlugin({
             "React": "react",
-            "_": "lodash"
+            "_": "lodash",
+            "Promise": "bluebird"
         })
     ]
 };
