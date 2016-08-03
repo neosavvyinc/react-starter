@@ -14,8 +14,8 @@ export default @observer class UserDisplayComponent extends React.Component {
                             <h4>{userData.name || 'mystery user'}</h4>
                             <h4>{`${userData.public_repos} public repos`}</h4>
                         </div>
-                    </div> :
-                    null
+                    </div>
+                    : null
                 }
             </div>
         );

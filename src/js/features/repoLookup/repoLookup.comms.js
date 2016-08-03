@@ -5,17 +5,17 @@ const accessToken = `?access_token=${githubApiAccessToken}`;
 
 export default class repoLookupComms {
     static getUserRepos(username) {
-        return fetch(`${gitUrl}/${username}/repos${accessToken}`).
-            then(res => this.processJson(res)).
-            then(rawRepos => rawRepos.map(
-            repo => _.pick(repo, ['name', 'html_url'])
-        ));
+        return fetch(`${gitUrl}/${username}/repos${accessToken}`)
+            .then(res => this.processJson(res))
+            .then(rawRepos => rawRepos.map(
+                repo => _.pick(repo, ['name', 'html_url'])
+            ));
     }
 
     static getUserData(username) {
-        return fetch(`${gitUrl}/${username}${accessToken}`).
-            then(res => this.processJson(res)).
-            then(rawUser => _.pick(rawUser, ['avatar_url', 'login', 'name', 'public_repos', 'html_url']));
+        return fetch(`${gitUrl}/${username}${accessToken}`)
+            .then(res => this.processJson(res))
+            .then(rawUser => _.pick(rawUser, ['avatar_url', 'login', 'name', 'public_repos', 'html_url']));
     }
 
     static processJson(res) {

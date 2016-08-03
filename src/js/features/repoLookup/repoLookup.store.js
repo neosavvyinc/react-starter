@@ -6,12 +6,12 @@ class RepoLookupStore {
     @observable repoData = [];
 
     @action fetchData(username) {
-        Promise.all([repoLookupComms.getUserData(username), repoLookupComms.getUserRepos(username)]).
-            then(action(data => {
+        Promise.all([repoLookupComms.getUserData(username), repoLookupComms.getUserRepos(username)])
+            .then(action(data => {
                 this.userData = data[0];
                 this.repoData = data[1];
-            })).
-            catch(err => console.error(err));
+            }))
+            .catch(err => console.error(err));
     }
 }
 
