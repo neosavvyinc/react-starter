@@ -1,0 +1,22 @@
+.ns-repo-list-container {
+  text-align: center;
+
+  ul {
+    margin: 0;
+    padding: 0;
+  }
+
+  li {
+    list-style: none;
+    margin-bottom: 10px;
+
+    &:last-of-type {
+      margin-bottom: 30px;
+    }
+
+    a {
+      text-decoration: none;
+      color: $brand-primary;
+    }
+  }
+}
