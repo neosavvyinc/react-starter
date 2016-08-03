@@ -1,18 +1,21 @@
 import { render } from 'react-dom';
-import { Router, Route, browserHistory } from 'react-router';
+import { Router, browserHistory } from 'react-router';
 
 import AppComponent from './app';
 
 import homeRoutes from './features/home/home.routes';
 import repoLookupRoutes from './features/repoLookup/repoLookup.routes';
 
-const routes = (
-    <Router history={browserHistory}>
-        <Route path="/" component={AppComponent}>
-            {homeRoutes} {/* IndexRoute */}
-            {repoLookupRoutes}
-        </Route>
-    </Router>
-);
+const routes = {
+    path: '/',
+    component: AppComponent,
+    childRoutes: [
+        homeRoutes,
+        repoLookupRoutes
+    ]
+};
 
-render(routes, document.getElementById('react-root'));
+const appRouter = <Router history={browserHistory} routes={routes} />;
+const reactRoot = document.getElementById('react-root');
+
+render(appRouter, reactRoot);
