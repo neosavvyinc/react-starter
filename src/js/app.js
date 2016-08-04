@@ -1,3 +1,4 @@
+import React from 'react';
 import { useStrict } from 'mobx';
 // globally set mobx to strict mode
 useStrict(true);

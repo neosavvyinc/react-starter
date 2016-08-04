@@ -1,3 +1,5 @@
+import React from 'react';
+
 export default class HomeComponent extends React.Component {
     render() {
         return (
@@ -5,7 +7,9 @@ export default class HomeComponent extends React.Component {
                 <h1 className="title">Home</h1>
                 <h3>react seed project</h3>
                 <h5>courtesy of neosavvy</h5>
-                <a href="http://www.neosavvy.com"><img src="src/assets/images/logo.png" /></a>
+                <a href="http://www.neosavvy.com">
+                    <img src="src/assets/images/logo.png" />
+                </a>
             </div>
         );
     }
