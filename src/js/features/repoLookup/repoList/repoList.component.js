@@ -1,9 +1,14 @@
 import { observer } from 'mobx-react';
+import provide from 'mobx-provide';
 import repoLookupStore from '../repoLookup.store';
 
-export default @observer class RepoListComponent extends React.Component {
+export class RepoListComponent extends React.Component {
+    static propTypes = {
+        repoLookupStore: React.PropTypes.object.isRequired
+    };
+
     render() {
-        const { repoData } = repoLookupStore;
+        const { repoData } = this.props.repoLookupStore;
         return (
             <div className="ns-repo-list-container">
                 <ul>
@@ -21,3 +26,7 @@ export default @observer class RepoListComponent extends React.Component {
         );
     }
 }
+
+const ObserverComponent = observer(RepoListComponent);
+
+export default provide({ repoLookupStore })(ObserverComponent);

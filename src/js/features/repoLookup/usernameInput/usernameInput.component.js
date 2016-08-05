@@ -1,8 +1,13 @@
 import { action, observable } from 'mobx';
 import { observer } from 'mobx-react';
+import provide from 'mobx-provide';
 import repoLookupStore from '../repoLookup.store';
 
-export default @observer class UsernameInputComponent extends React.Component {
+export class UsernameInputComponent extends React.Component {
+    static propTypes = {
+        repoLookupStore: React.PropTypes.object.isRequired
+    };
+
     @observable input = '';
 
     @action onChange = event => {
@@ -11,12 +16,15 @@ export default @observer class UsernameInputComponent extends React.Component {
 
     @action onSubmit = event => {
         event.preventDefault();
+
         const username = this.input;
+
         if (username) {
-            repoLookupStore.fetchData(username);
+            this.props.repoLookupStore.fetchData(username);
         } else {
             console.error('No Input!');
         }
+
         this.input = '';
     };
 
@@ -29,3 +37,7 @@ export default @observer class UsernameInputComponent extends React.Component {
         );
     }
 }
+
+const ObserverComponent = observer(UsernameInputComponent);
+
+export default provide({ repoLookupStore })(ObserverComponent);
