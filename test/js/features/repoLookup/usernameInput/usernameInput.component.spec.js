@@ -5,6 +5,7 @@ import sinon from 'sinon';
 
 import { UsernameInputComponent } from '../../../../../src/js/features/repoLookup/usernameInput/usernameInput.component';
 import repoLookupStore from '../../../../../src/js/features/repoLookup/repoLookup.store';
+import MessageBox from '../../../../../src/js/features/common/components/messageBox/messageBox.component.js';
 
 describe('UsernameInputComponent', () => {
     let wrapper;
@@ -36,16 +37,30 @@ describe('UsernameInputComponent', () => {
         expect(repoLookupStore.fetchData.calledWith('test123')).to.equal(true);
     }));
 
-    it('should log an error on submit when input is empty string', sinon.test(function() {
-        const consoleStub = this.stub(console, 'error');
-        this.spy(repoLookupStore, 'fetchData');
-        const preventDefault = this.stub();
+    it('should render a MessageBox for Loading...', () => {
+        expect(wrapper.contains(
+            <MessageBox
+                condition={false}
+                color="primary"
+                message="Loading..." />
+        )).to.equal(true);
+    });
 
-        wrapper.find('input').simulate('change', { target: { value: '' } });
+    it('should render a MessageBox for Unknown User', () => {
+        expect(wrapper.contains(
+            <MessageBox
+                condition={false}
+                color="red"
+                message="Unknown User" />
+        )).to.equal(true);
+    });
 
-        wrapper.props().onSubmit({ preventDefault });
-
-        expect(consoleStub.called).to.equal(true);
-        expect(repoLookupStore.fetchData.called).to.equal(false);
-    }));
+    it('should render a MessageBox for Invalid Input', () => {
+        expect(wrapper.contains(
+            <MessageBox
+                condition={false}
+                color="red"
+                message="Invalid Input" />
+        )).to.equal(true);
+    });
 });
