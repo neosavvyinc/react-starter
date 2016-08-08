@@ -1,3 +1,4 @@
+import React from 'react';
 import { action, observable } from 'mobx';
 import { observer } from 'mobx-react';
 import provide from 'mobx-provide';
@@ -22,7 +23,7 @@ export class UsernameInputComponent extends React.Component {
         if (username) {
             this.props.repoLookupStore.fetchData(username);
         } else {
-            console.error('No Input!');
+            console.error('No Input!'); // eslint-disable-line no-console
         }
 
         this.input = '';

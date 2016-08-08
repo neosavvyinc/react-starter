@@ -50,11 +50,6 @@ const webpackConfig = {
             title: 'NS React Seed',
             favicon: path.join(SRC_DIR, '/assets/images/favicon.png'),
             template: path.join(SRC_DIR, '/index.html')
-        }),
-        new webpack.ProvidePlugin({
-            "React": "react",
-            "_": "lodash",
-            "Promise": "bluebird"
         })
     ]
 };

@@ -1,3 +1,4 @@
+import React from 'react';
 import { observer } from 'mobx-react';
 import provide from 'mobx-provide';
 import repoLookupStore from '../repoLookup.store';
