@@ -7,7 +7,7 @@ export default class RepoLookupComponent extends React.Component {
     render() {
         return (
             <div className="ns-repo-lookup">
-                <h1>Repo Lookup</h1>
+                <h1 className="title">Repo Lookup</h1>
                 <UsernameInputComponent />
                 <UserDisplayComponent />
                 <RepoListComponent />

@@ -13,17 +13,24 @@ export class RepoLookupStore {
     // this store maintains these two observable values
     @observable userData = null;
     @observable repoData = [];
+    @observable isLoading = false;
+    @observable unknownUser = false;
 
     // it also contains this action, which populates the observables with data from the comms layer
     @action fetchData(username) {
+        this.unknownUser = false;
+        this.isLoading = true;
         return Promise.all([this.comms.getUserData(username), this.comms.getRepoData(username)])
             .then(action(data => {
                 this.userData = data[0];
                 this.repoData = data[1];
+                this.isLoading = false;
             }))
-            .catch(err => {
+            .catch(action(err => {
                 console.error(err); // eslint-disable-line no-console
-            });
+                this.isLoading = false;
+                this.unknownUser = true;
+            }));
     }
 }
 

@@ -10,6 +10,7 @@ export class UsernameInputComponent extends React.Component {
     };
 
     @observable input = '';
+    @observable isInvalid = false;
 
     @action onChange = event => {
         this.input = event.target.value;
@@ -22,8 +23,9 @@ export class UsernameInputComponent extends React.Component {
 
         if (username) {
             this.props.repoLookupStore.fetchData(username);
+            this.isInvalid = false;
         } else {
-            console.error('No Input!'); // eslint-disable-line no-console
+            this.isInvalid = true;
         }
 
         this.input = '';
@@ -34,6 +36,28 @@ export class UsernameInputComponent extends React.Component {
             <form onSubmit={this.onSubmit} className="ns-username-input-container">
                 <input onChange={this.onChange} value={this.input} />
                 <button type="submit">Find User</button>
+                {
+                    this.props.repoLookupStore.isLoading ?
+                        <div className="loading-container">
+                            Loading...
+                        </div>
+                        : null
+                }
+                {
+                    this.props.repoLookupStore.unknownUser ?
+                        <div className="error-container">
+                            Unknown User
+                        </div>
+                        : null
+                }
+                {
+                    this.isInvalid ?
+                        <div className="error-container">
+                            Invalid Input
+                        </div>
+                        : null
+
+                }
             </form>
         );
     }
