@@ -1,9 +1,9 @@
-.ns-navbar-and-footer-template {
+.container {
   display: flex;
   flex-direction: column;
   min-height: 100vh;
 
-  .content-container {
+  .content {
     display: flex;
     flex: 1 0 auto;
   }

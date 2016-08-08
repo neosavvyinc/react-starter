@@ -1,4 +1,6 @@
-.ns-active-link {
-  color: $brand-primary !important;
+@import '../../../../../assets/styles/global-variables';
+
+.active {
+  color: $brand-primary;
   border-bottom: $brand-white 2px solid;
 }

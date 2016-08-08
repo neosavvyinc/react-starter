@@ -1,5 +1,7 @@
-.ns-username-input-container {
-  .username-input {
+@import '../../../../assets/styles/global-variables';
+
+.container {
+  .input {
     padding: 3px;
     width: 150px;
     background: $brand-white;
@@ -13,7 +15,7 @@
     outline-offset: 3px;
   }
 
-  .username-submit {
+  .button {
     background: $brand-white;
     border: none;
     border-bottom: 2px $brand-primary solid;

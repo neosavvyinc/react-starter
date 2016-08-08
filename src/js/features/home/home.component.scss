@@ -1,15 +1,17 @@
-.ns-home {
+@import '../../../assets/styles/global-variables';
+
+.home {
   display: flex;
   flex: 1;
   flex-direction: column;
   align-items: center;
   font-family: Arial, Helvetica, sans-serif;
 
-  .title {
+  .header {
     color: $brand-primary;
   }
 
-  img {
+  .logo {
     margin-top: 20px;
   }
 }

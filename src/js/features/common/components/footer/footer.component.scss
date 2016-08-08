@@ -1,4 +1,6 @@
-footer.ns-footer {
+@import '../../../../../assets/styles/global-variables';
+
+.footer {
   color: $brand-black;
   background-color: $brand-primary;
   height: 50px;
