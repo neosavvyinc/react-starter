@@ -1,0 +1,28 @@
+.ns-message-box-container {
+  padding: 0;
+  margin: 0;
+
+  .primary-message-container {
+    display: flex;
+    justify-content: center;
+    text-align: center;
+    margin-top: 15px;
+    padding: 7px;
+
+    box-shadow: 0 0 2px 2px rgba($brand-primary, .7) inset,
+    0 0 2px 2px rgba($brand-primary, .7);
+    border-radius: 5px;
+
+    font-size: 14px;
+    color: $brand-primary;
+  }
+
+  .red-message-container {
+    @extend .primary-message-container;
+
+    box-shadow: 0 0 2px 2px rgba($brand-red, .7) inset,
+    0 0 2px 2px rgba($brand-red, .7);
+
+    color: $brand-red;
+  }
+}

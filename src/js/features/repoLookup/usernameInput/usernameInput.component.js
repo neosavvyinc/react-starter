@@ -3,6 +3,7 @@ import { action, observable } from 'mobx';
 import { observer } from 'mobx-react';
 import provide from 'mobx-provide';
 import repoLookupStore from '../repoLookup.store';
+import MessageBox from '../../common/components/messageBox/messageBox.component';
 
 export class UsernameInputComponent extends React.Component {
     static propTypes = {
@@ -34,30 +35,23 @@ export class UsernameInputComponent extends React.Component {
     render() {
         return (
             <form onSubmit={this.onSubmit} className="ns-username-input-container">
-                <input onChange={this.onChange} value={this.input} />
-                <button type="submit">Find User</button>
-                {
-                    this.props.repoLookupStore.isLoading ?
-                        <div className="loading-container">
-                            Loading...
-                        </div>
-                        : null
-                }
-                {
-                    this.props.repoLookupStore.unknownUser ?
-                        <div className="error-container">
-                            Unknown User
-                        </div>
-                        : null
-                }
-                {
-                    this.isInvalid ?
-                        <div className="error-container">
-                            Invalid Input
-                        </div>
-                        : null
-
-                }
+                <input
+                    onChange={this.onChange}
+                    value={this.input}
+                    className="username-input"/>
+                <button type="submit" className="username-submit">Find User</button>
+                <MessageBox
+                    condition={this.props.repoLookupStore.isLoading}
+                    color="primary"
+                    message="Loading..." />
+                <MessageBox
+                    condition={this.props.repoLookupStore.unknownUser && !this.isInvalid}
+                    color="red"
+                    message="Unknown User" />
+                <MessageBox
+                    condition={this.isInvalid}
+                    color="red"
+                    message="Invalid Input" />
             </form>
         );
     }
