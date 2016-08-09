@@ -1,17 +1,15 @@
+import test from 'ava';
 import React from 'react';
-import { expect } from 'chai';
 import { shallow } from 'enzyme';
 
 import FooterComponent from '../../../../../../src/js/features/common/components/footer/footer.comp';
 
-describe('FooterComponent', () => {
-    let wrapper;
+let wrapper;
 
-    beforeEach(() => {
-        wrapper = shallow(<FooterComponent />);
-    });
+test.beforeEach(() => {
+    wrapper = shallow(<FooterComponent />);
+});
 
-    it('should render a footer element', () => {
-        expect(wrapper.find('footer').length).to.equal(1);
-    });
+test('render a footer container', t => {
+    t.truthy(wrapper.is('footer'));
 });

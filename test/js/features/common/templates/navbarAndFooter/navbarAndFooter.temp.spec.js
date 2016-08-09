@@ -1,46 +1,55 @@
+import test from 'ava';
 import React from 'react';
-import { expect } from 'chai';
 import { shallow } from 'enzyme';
 
 import FooterComponent from '../../../../../../src/js/features/common/components/footer/footer.comp';
 import NavbarComponent from '../../../../../../src/js/features/common/components/navbar/navbar.comp';
 import NavbarAndFooterTemplate from '../../../../../../src/js/features/common/templates/navbarAndFooter/navbarAndFooter.temp';
 
-describe('NavbarAndFooterTemplate', () => {
-    const testHeader = <h1>Test123</h1>;
-    const testPara = <p>Testing, 1...2...3...</p>;
-    let wrapper;
+const testHeader = <h1>Test123</h1>;
+const testPara = <p>Testing, 1...2...3...</p>;
+let wrapper;
 
-    beforeEach(() => {
-        wrapper = shallow(
-            <NavbarAndFooterTemplate>
-                <div>
-                    {testHeader}
-                    {testPara}
-                </div>
-            </NavbarAndFooterTemplate>
-        );
-    });
+test.beforeEach(() => {
+    wrapper = shallow(
+        <NavbarAndFooterTemplate>
+            <div>
+                {testHeader}
+                {testPara}
+            </div>
+        </NavbarAndFooterTemplate>
+    );
+});
 
-    it('should render a div container', () => {
-        expect(wrapper.find('div').first().parents().length).to.equal(0);
-    });
+test('render a containing div', t => {
+    t.truthy(wrapper.is('div'));
+});
 
-    it('should render a NavbarComponent', () => {
-        expect(wrapper.contains(<NavbarComponent />)).to.equal(true);
-    });
+test('render a NavbarComponent as first child', t => {
+    const isNavbarComponentFirstChild = wrapper.children()
+        .first().matchesElement(<NavbarComponent />);
 
-    it('should render a child div for displaying content', () => {
-        expect(wrapper.find('div').first().children().at(1).type()).to.equal('div');
-    });
+    t.truthy(isNavbarComponentFirstChild);
+});
 
-    it('should render children inside of the content container', () => {
-        const contentContainer = wrapper.find('div').first().children().at(1);
+test('render a div for displaying content as second child', t => {
+    const typeOfSecondChildOfFirstDiv = wrapper.children()
+        .at(1).type();
 
-        expect(contentContainer.contains([testHeader, testPara])).to.equal(true);
-    });
+    t.is(typeOfSecondChildOfFirstDiv, 'div');
+});
 
-    it('should render a FooterComponent', () => {
-        expect(wrapper.contains(<FooterComponent />)).to.equal(true);
-    });
+test('render children inside of the content container', t => {
+    const expectedChildren = [testHeader, testPara];
+    const doesSecondChildContainExpected = wrapper.children()
+        .at(1).contains(expectedChildren);
+
+    t.truthy(doesSecondChildContainExpected);
+});
+
+test('render a FooterComponent as third child', t => {
+    const isFooterComponentThirdChild = wrapper.children()
+        .at(2).matchesElement(<FooterComponent />);
+
+    t.truthy(isFooterComponentThirdChild);
 });

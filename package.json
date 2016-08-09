@@ -12,7 +12,7 @@
     "lint": "eslint --config src/config/eslint/eslint.config.json src/js/**",
     "lint:test": "eslint --config src/config/eslint/eslint.config.json --env mocha test/js/**",
     "setup": "node src/config/prompts/setup.js",
-    "test": "mocha test/testSetup.js test/**/*.spec.js --reporter progress"
+    "test": "ava"
   },
   "repository": {
     "type": "git",
@@ -25,6 +25,15 @@
     "url": "https://github.com/neosavvyinc/react-starter/issues"
   },
   "homepage": "https://github.com/neosavvyinc/react-starter#readme",
+  "ava": {
+    "babel": "inherit",
+    "files": [
+      "test/js"
+    ],
+    "require": [
+      "./test/config/testSetup.js"
+    ]
+  },
   "babel": {
     "presets": [
       "es2015",
@@ -36,6 +45,7 @@
     ]
   },
   "devDependencies": {
+    "ava": "0.16.0",
     "babel-eslint": "6.1.2",
     "babel-loader": "6.2.4",
     "babel-plugin-transform-class-properties": "6.11.5",

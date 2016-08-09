@@ -1,4 +1,4 @@
-import { expect } from 'chai';
+import test from 'ava';
 import sinon from 'sinon';
 import fetchMock from 'fetch-mock';
 import _ from 'lodash';
@@ -8,101 +8,131 @@ import { githubApiAccessToken } from '../../../../src/config/constants';
 
 /* eslint-disable camelcase */
 
-describe('repoLookupComms', () => {
-    const gitUrl = 'https://api.github.com/users';
-    const accessToken = `?access_token=${githubApiAccessToken}`;
-    const username = 'username';
+const gitUrl = 'https://api.github.com/users';
+const accessToken = `?access_token=${githubApiAccessToken}`;
+const username = 'username';
 
-    const userEndpoint = `${gitUrl}/${username}${accessToken}`;
-    const repoEndpoint = `${gitUrl}/${username}/repos${accessToken}`;
+const userEndpoint = `${gitUrl}/${username}${accessToken}`;
+const repoEndpoint = `${gitUrl}/${username}/repos${accessToken}`;
 
-    it('.getRepoData should call fetch with the correct URL', () => {
-        fetchMock.mock(repoEndpoint, 200);
+/*
+    Here, the first two tests stub out some of the methods that other tests are checking.
+    To deal with this, the stubbing tests are run serially BEFORE the rest of the tests,
+    which will fire concurrently as usual, after the stubbing tests are completed.
 
-        repoLookupComms.getRepoData(username);
+    Please note that async AVA does not seem to play very nicely with the sinon.test() sandbox wrapper.
+    Kudos to anyone who comes up with a repeatable pattern for the sandbox approach.
+ */
 
-        expect(fetchMock.called(repoEndpoint)).to.equal(true);
+test.serial('getRepoData calls fetch with the correct URL', t => {
+    t.plan(1);
 
-        fetchMock.restore();
-    });
+    sinon.stub(repoLookupComms, 'processJson');
+    sinon.stub(repoLookupComms, 'processRawRepos');
 
-    it('.getUserData should call fetch with the correct URL', () => {
-        fetchMock.mock(userEndpoint, 200);
+    fetchMock.mock(repoEndpoint, 200);
 
-        repoLookupComms.getUserData(username);
+    return repoLookupComms.getRepoData(username)
+        .then(() => {
+            t.truthy(fetchMock.called(repoEndpoint));
 
-        expect(fetchMock.called(userEndpoint)).equal(true);
+            fetchMock.restore();
+            repoLookupComms.processJson.restore();
+            repoLookupComms.processRawRepos.restore();
+        });
+});
 
-        fetchMock.restore();
-    });
+test.serial('getUserData calls fetch with the correct URL', t => {
+    t.plan(1);
 
-    it('.processJson should be able to process a JSON response', () => {
-        const responseMock = {
-            json: sinon.spy()
-        };
+    sinon.stub(repoLookupComms, 'processJson');
+    sinon.stub(repoLookupComms, 'processRawRepos');
 
-        repoLookupComms.processJson(responseMock);
+    fetchMock.mock(userEndpoint, 200);
 
-        expect(responseMock.json.called).to.equal(true);
-    });
+    repoLookupComms.getUserData(username);
 
-    it('.processJson should throw an error if given a response status of 400', () => {
-        const responseErrorMock = {
-            status: 404,
-            json: sinon.spy()
-        };
+    return repoLookupComms.getUserData(username)
+        .then(() => {
+            t.truthy(fetchMock.called(userEndpoint));
 
-        const errorSpy = sinon.spy();
+            fetchMock.restore();
+            repoLookupComms.processJson.restore();
+            repoLookupComms.processRawRepos.restore();
+        });
+});
 
-        try {
-            repoLookupComms.processJson(responseErrorMock);
-        } catch (error) {
-            errorSpy();
-        }
+test('processJson processes a JSON response', t => {
+    const responseMock = {
+        json: sinon.spy()
+    };
 
-        expect(responseErrorMock.json.called).to.equal(false);
-        expect(errorSpy.called).to.equal(true);
-    });
+    repoLookupComms.processJson(responseMock);
 
-    it('.processRawUser should trim an object to the correct props', () => {
-        const rawUserMock = {
-            avatar_url: 'avatar_url',
-            login: 'login',
-            name: 'name',
-            public_repos: 20,
-            unwanted1: 500,
-            unwanted2: '11231',
-            unwanted3: 'helloworld'
-        };
+    t.truthy(responseMock.json.called);
+});
 
-        expect(repoLookupComms.processRawUser(rawUserMock)).to.deep.equal(
-            _.pick(rawUserMock, [
-                'avatar_url',
-                'login',
+test('processJson throws if given a response status of 404', t => {
+    const responseErrorMock = {
+        status: 404,
+        json: sinon.spy()
+    };
+
+    const errorSpy = sinon.spy();
+
+    try {
+        repoLookupComms.processJson(responseErrorMock);
+    } catch (error) {
+        errorSpy();
+    }
+
+    t.falsy(responseErrorMock.json.called);
+    t.truthy(errorSpy.called);
+});
+
+test('processRawUser trims an object to the correct props', t => {
+    const rawUserMock = {
+        avatar_url: 'avatar_url',
+        login: 'login',
+        name: 'name',
+        public_repos: 20,
+        unwanted1: 500,
+        unwanted2: '11231',
+        unwanted3: 'helloworld'
+    };
+
+    const expectedResult = _.pick(rawUserMock, [
+        'avatar_url',
+        'login',
+        'name',
+        'public_repos'
+    ]);
+
+    const actualResult = repoLookupComms.processRawUser(rawUserMock);
+
+    t.deepEqual(actualResult, expectedResult);
+});
+
+test('processRawRepos should trim each repo in an array to the correct structure', t => {
+    let count = 0;
+
+    const rawReposMock = _.times(10, () => ({
+        name: `repo${count}`,
+        html_url: `html_url${count++}`,
+        unwanted1: 500,
+        unwanted2: 'string'
+    }));
+
+    const expectedResult = _.map(rawReposMock,
+        rawRepo => _.pick(rawRepo,
+            [
                 'name',
-                'public_repos'
-            ])
-        );
-    });
+                'html_url'
+            ]
+        )
+    );
 
-    it('.processRawRepos should trim an array of repos to the correct structure', () => {
-        let count = 0;
+    const actualResult = repoLookupComms.processRawRepos(rawReposMock);
 
-        const rawReposMock = _.times(10, () => ({
-            name: `repo${count}`,
-            html_url: `html_url${count++}`,
-            unwanted1: 500,
-            unwanted2: 'string'
-        }));
-
-        expect(repoLookupComms.processRawRepos(rawReposMock)).to.deep.equal(
-            _.map(rawReposMock, rawRepo => _.pick(rawRepo,
-                [
-                    'name',
-                    'html_url'
-                ]
-                )
-            )
-        );
-    });
+    t.deepEqual(actualResult, expectedResult);
 });
