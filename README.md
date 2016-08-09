@@ -11,28 +11,37 @@
 
 ### Application Overview
 * This seed application is split into FEATURES
-  * Each feature contains at least a `feature.component.js` and a `feature.component.scss` to define its parent component
+  * Each feature contains at least a `feature.component.js` and (usually) a `feature.component.scss` to declare the parent component
   * Features are defined by the slice of state that they consume. If two components consume the same slice of state,
   then they should be located within the same feature.
   * Features may contain subcomponents, a routing file, a store file, and a communications file
   * See `src/js/features/repoLookup` for a fleshed out, boilerplate feature with all of these files in play
+
 * STATE MANAGEMENT uses MobX, a low-cost, high-performance alternative to Redux
   * Each feature has its own `feature.store.js`, which handles all data for that feature
   * The feature's store is imported directly into any component that consumes the store's data
     * Data access should be as close to the final render as possible. This allows MobX to optimize observer components fully.
   * If necessary, any `feature.store.js` should consume a `feature.comms.js` to handle network requests
-* All STYLING is piped through `src/assets/styles/main.scss`
-  * Components with styles are wrapped in a `.ns-component-container` classed div to hide their styles from the global scope
-  * Component style sheets are imported into `main.scss`
-  * Global styles are declared in `main.scss` before component imports
-  * Global style variables are declared in `src/assets/styles/global-variables.scss` and imported at the top of `main.scss`
+  * See `repoLookup` for a simple domain store example
+
+* STYLING is localized via Webpack's CSS Modules feature, piped into components via React-CSS-Modules
+  * All styling is local to a component unless explicitly stated otherwise with `:global(.css-rule) { ... }`
+  * To apply styles, import a `styles` object from `name.comp.scss` and attribute `className={styles.nameOfClass}`
+  * WARNING: Only camelCase CSS rules will work with this setup!
+  * WARNING: All styles will be considered `undefined` when testing! Do not use Enzyme's CSS selection!
+
 * ROUTING is done through `react-router`.
   * Each feature contains its own `feature.routes.js` file, which exports its components' routes
   * `src/js/routes.js` imports all feature routes and serves as an entry point for webpack
+
 * TEMPLATING is accomplished through nested routing
   * A template is created that expects `this.props.children` somewhere within its render method
   * Nested routing allows the piping of components into `this.props.children`
   * See `src/js/features/home/home.routes.js` for a simple example, which pipes `HomeComponent` into `NavbarAndFooterTemplate`
-* Some GLOBAL VARIABLES are available from `webpack.ProvidePlugin`
-  * `React` and `_` are available without requiring an import statement
-  * `Promise` has been replaced with the Bluebird library, and is accessible without importing
+
+* TESTING relies upon Mocha + Chai + Sinon + Enzyme
+  * Testing in this seed app focuses on two aspects of each component:
+    * Behavioral testing cements component logic
+    * Structural testing cements component DOM structure
+  * WARNING: Please note that all `styles` imports are returned as null, which means all `classNames` evaluate to `undefined`
+    * This breaks Enzyme's CSS selection features, so focus on crawling the DOM tree, instead

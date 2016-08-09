@@ -2,8 +2,8 @@ import React from 'react';
 import { expect } from 'chai';
 import { shallow } from 'enzyme';
 
-import ActiveLink from '../../../../../../src/js/features/common/components/activeLink/activeLink.component';
-import NavbarComponent from '../../../../../../src/js/features/common/components/navbar/navbar.component';
+import ActiveLink from '../../../../../../src/js/features/common/components/activeLink/activeLink.comp';
+import NavbarComponent from '../../../../../../src/js/features/common/components/navbar/navbar.comp';
 
 describe('NavbarComponent', () => {
     let wrapper;
@@ -13,11 +13,11 @@ describe('NavbarComponent', () => {
     });
 
     it('should render a navbar container', () => {
-        expect(wrapper.find('nav .ns-navbar').length).to.equal(1);
+        expect(wrapper.find('nav').length).to.equal(1);
     });
 
-    it('should render a nav list', () => {
-        expect(wrapper.find('ul[role=\'nav\']').length).to.equal(1);
+    it('should render a nav list within the container', () => {
+        expect(wrapper.find('nav').children().find('ul[role=\'nav\']').length).to.equal(1);
     });
 
     it('should render an index link to Home', () => {

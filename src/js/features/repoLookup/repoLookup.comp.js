@@ -1,9 +1,9 @@
 import React from 'react';
-import UserDisplayComponent from './userDisplay/userDisplay.component';
-import RepoListComponent from './repoList/repoList.component';
-import UsernameInputComponent from './usernameInput/usernameInput.component';
+import UserDisplayComponent from './userDisplay/userDisplay.comp';
+import RepoListComponent from './repoList/repoList.comp';
+import UsernameInputComponent from './usernameInput/usernameInput.comp';
 
-import styles from './repoLookup.component.scss';
+import styles from './repoLookup.comp.scss';
 
 export default class RepoLookupComponent extends React.Component {
     render() {

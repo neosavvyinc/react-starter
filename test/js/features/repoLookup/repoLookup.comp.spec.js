@@ -2,10 +2,10 @@ import React from 'react';
 import { expect } from 'chai';
 import { shallow } from 'enzyme';
 
-import RepoLookupComponent from '../../../../src/js/features/repoLookup/repoLookup.component';
-import UsernameInputComponent from '../../../../src/js/features/repoLookup/usernameInput/usernameInput.component';
-import UserDisplayComponent from '../../../../src/js/features/repoLookup/userDisplay/userDisplay.component';
-import RepoListComponent from '../../../../src/js/features/repoLookup/repoList/repoList.component';
+import RepoLookupComponent from '../../../../src/js/features/repoLookup/repoLookup.comp';
+import UsernameInputComponent from '../../../../src/js/features/repoLookup/usernameInput/usernameInput.comp';
+import UserDisplayComponent from '../../../../src/js/features/repoLookup/userDisplay/userDisplay.comp';
+import RepoListComponent from '../../../../src/js/features/repoLookup/repoList/repoList.comp';
 
 describe('RepoLookupComponent', () => {
     let wrapper;
@@ -14,8 +14,8 @@ describe('RepoLookupComponent', () => {
         wrapper = shallow(<RepoLookupComponent/>);
     });
 
-    it('should render a container', () => {
-        expect(wrapper.find('div.ns-repo-lookup').length).to.equal(1);
+    it('should render a containing div', () => {
+        expect(wrapper.find('div').first().parents().length).to.equal(0);
     });
 
     it('should render a single header', () => {

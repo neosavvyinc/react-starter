@@ -3,7 +3,7 @@ import { observer } from 'mobx-react';
 import provide from 'mobx-provide';
 import repoLookupStore from '../repoLookup.store';
 
-import styles from './userDisplay.component.scss';
+import styles from './userDisplay.comp.scss';
 
 export class UserDisplayComponent extends React.Component {
     static propTypes = {

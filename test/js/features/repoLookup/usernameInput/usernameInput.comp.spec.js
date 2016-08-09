@@ -2,10 +2,9 @@ import React from 'react';
 import { expect } from 'chai';
 import { shallow } from 'enzyme';
 import sinon from 'sinon';
-
-import { UsernameInputComponent } from '../../../../../src/js/features/repoLookup/usernameInput/usernameInput.component';
+import { UsernameInputComponent } from '../../../../../src/js/features/repoLookup/usernameInput/usernameInput.comp';
 import repoLookupStore from '../../../../../src/js/features/repoLookup/repoLookup.store';
-import MessageBox from '../../../../../src/js/features/common/components/messageBox/messageBox.component.js';
+import MessageBox from '../../../../../src/js/features/common/components/messageBox/messageBox.comp';
 
 describe('UsernameInputComponent', () => {
     let wrapper;
@@ -15,7 +14,7 @@ describe('UsernameInputComponent', () => {
     });
 
     it('should render a form container', () => {
-        expect(wrapper.find('form.ns-username-input-container').length).to.equal(1);
+        expect(wrapper.find('form').first().parents().length).to.equal(0);
     });
 
     it('should render an input field', () => {
@@ -41,7 +40,7 @@ describe('UsernameInputComponent', () => {
         expect(wrapper.contains(
             <MessageBox
                 condition={false}
-                color="primary"
+                type="success"
                 message="Loading..." />
         )).to.equal(true);
     });
@@ -50,7 +49,7 @@ describe('UsernameInputComponent', () => {
         expect(wrapper.contains(
             <MessageBox
                 condition={false}
-                color="red"
+                type="error"
                 message="Unknown User" />
         )).to.equal(true);
     });
@@ -59,7 +58,7 @@ describe('UsernameInputComponent', () => {
         expect(wrapper.contains(
             <MessageBox
                 condition={false}
-                color="red"
+                type="error"
                 message="Invalid Input" />
         )).to.equal(true);
     });

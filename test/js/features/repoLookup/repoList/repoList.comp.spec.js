@@ -2,7 +2,7 @@ import React from 'react';
 import { expect } from 'chai';
 import { shallow } from 'enzyme';
 
-import { RepoListComponent } from '../../../../../src/js/features/repoLookup/repoList/repoList.component';
+import { RepoListComponent } from '../../../../../src/js/features/repoLookup/repoList/repoList.comp';
 import repoLookupStore from '../../../../../src/js/features/repoLookup/repoLookup.store';
 
 /* eslint-disable camelcase */
@@ -30,23 +30,22 @@ describe('RepoListComponent', () => {
         wrapper = shallow(<RepoListComponent repoLookupStore={repoLookupStore} />);
     });
 
-    it('should render a div container', () => {
-        expect(wrapper.find(
-            'div.ns-repo-list-container'
-        ).length).to.equal(1);
+    it('should render a containing div', () => {
+        expect(wrapper.find('div').first().parents().length).to.equal(0);
     });
 
     it('should render an unordered list', () => {
-        expect(wrapper.find(
-            'ul'
-        ).length).to.equal(1);
+        expect(wrapper.find('ul').length).to.equal(1);
     });
 
     it('should render an li for each repo in repoData', () => {
         repoData.forEach(repo => {
             expect(wrapper.contains(
-                <li>
-                    <a href={repo.html_url} target="_blank">{repo.name}</a>
+                <li className={undefined}>
+                    <a href={repo.html_url} target="_blank"
+                        className={undefined}>
+                        {repo.name}
+                    </a>
                 </li>
             )).to.equal(true);
         });
@@ -57,8 +56,6 @@ describe('RepoListComponent', () => {
 
         wrapper.setProps({ repoLookupStore });
 
-        expect(wrapper.contains(
-            <ul></ul>
-        )).to.equal(true);
+        expect(wrapper.contains(<ul className={undefined}></ul>)).to.equal(true);
     });
 });

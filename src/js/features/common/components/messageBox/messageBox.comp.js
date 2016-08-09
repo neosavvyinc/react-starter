@@ -1,6 +1,6 @@
 import React from 'react';
 
-import styles from './messageBox.component.scss';
+import styles from './messageBox.comp.scss';
 
 export default class MessageBox extends React.Component {
     static propTypes = {
