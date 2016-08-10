@@ -2,11 +2,13 @@ const prompt = require('prompt');
 const fs = require('fs');
 const _ = require('lodash');
 
-const targetFile = './src/config/constants.js';
+const targetFile = './src/js/constants.js';
+
+/* eslint-disable no-console */
 
 prompt.start();
 
-console.log("This setup prompt will write your API keys to the proper location.");
+console.log('This setup prompt will write your API keys to the proper location.');
 console.log('\n---------------------------------------------------------------------------\n');
 
 prompt.get(['githubApiAccessToken'], (error, result) => {
@@ -19,12 +21,12 @@ prompt.get(['githubApiAccessToken'], (error, result) => {
     console.log('\n---------------------------------------------------------------------------\n');
     console.log('Command-line input received:\n');
 
-    inputPairs.forEach(function(pair) {
-        console.log(pair[0] + " = " + pair[1] );
+    inputPairs.forEach(pair => {
+        console.log(`${pair[0]} = ${pair[1]}`);
     });
 
-    const output = inputPairs.map(function(pair){
-        return "export const " + pair[0] + ": string = '" + pair[1] + "';";
+    const output = inputPairs.map(pair => {
+        return `export const ${pair[0]} = '${pair[1]}';`;
     }).join('\n');
 
     console.log('\n---------------------------------------------------------------------------\n');
@@ -32,7 +34,7 @@ prompt.get(['githubApiAccessToken'], (error, result) => {
     console.log(output);
 
     console.log('\n---------------------------------------------------------------------------\n');
-    console.log('Writing output to ' + targetFile + "\n");
+    console.log(`Writing output to '${targetFile}\n`);
 
-    fs.writeFileSync(targetFile, output);
+    return fs.writeFileSync(targetFile, output);
 });

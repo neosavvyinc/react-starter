@@ -1,5 +1,5 @@
 import * as _ from 'lodash';
-import { githubApiAccessToken } from '../../../config/constants';
+import { githubApiAccessToken } from '../../constants';
 
 const gitUrl = 'https://api.github.com/users';
 const accessToken = `?access_token=${githubApiAccessToken}`;

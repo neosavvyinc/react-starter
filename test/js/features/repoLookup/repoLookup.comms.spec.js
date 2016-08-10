@@ -4,7 +4,7 @@ import fetchMock from 'fetch-mock';
 import _ from 'lodash';
 
 import repoLookupComms from '../../../../src/js/features/repoLookup/repoLookup.comms';
-import { githubApiAccessToken } from '../../../../src/config/constants';
+import { githubApiAccessToken } from '../../../../src/js/constants';
 
 /* eslint-disable camelcase */
 
