@@ -3,7 +3,7 @@ import { observer } from 'mobx-react';
 import provide from 'mobx-provide';
 import repoLookupStore from '../repoLookup.store';
 
-import styles from './repoList.component.scss';
+import styles from './repoList.comp.scss';
 
 export class RepoListComponent extends React.Component {
     static propTypes = {

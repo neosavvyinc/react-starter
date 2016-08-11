@@ -1,5 +1,5 @@
-import NavbarAndFooterTemplate from '../common/templates/navbarAndFooter/navbarAndFooter.template';
-import RepoLookupComponent from './repoLookup.component';
+import NavbarAndFooterTemplate from '../common/templates/navbarAndFooter/navbarAndFooter.temp';
+import RepoLookupComponent from './repoLookup.comp';
 
 const repoLookupRoutes = {
     component: NavbarAndFooterTemplate,

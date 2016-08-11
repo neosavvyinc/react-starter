@@ -1,5 +1,5 @@
-import NavbarAndFooterTemplate from '../common/templates/navbarAndFooter/navbarAndFooter.template';
-import HomeComponent from './home.component';
+import NavbarAndFooterTemplate from '../common/templates/navbarAndFooter/navbarAndFooter.temp';
+import HomeComponent from './home.comp';
 
 const homeRoutes = {
     component: NavbarAndFooterTemplate,

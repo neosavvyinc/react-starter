@@ -3,9 +3,9 @@ import { action, observable } from 'mobx';
 import { observer } from 'mobx-react';
 import provide from 'mobx-provide';
 import repoLookupStore from '../repoLookup.store';
-import MessageBox from '../../common/components/messageBox/messageBox.component';
+import MessageBox from '../../common/components/messageBox/messageBox.comp';
 
-import styles from './usernameInput.component.scss';
+import styles from './usernameInput.comp.scss';
 
 export class UsernameInputComponent extends React.Component {
     static propTypes = {

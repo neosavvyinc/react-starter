@@ -10,15 +10,3 @@ html, body, div {
 body {
   color: $brand-white;
 }
-
-@import '../../js/features/common/components/activeLink/activeLink.component';
-@import '../../js/features/common/components/footer/footer.component';
-@import '../../js/features/common/components/navbar/navbar.component';
-@import '../../js/features/common/components/messageBox/messageBox.component';
-@import '../../js/features/common/templates/navbarAndFooter/navbarAndFooter.template';
-
-@import '../../js/features/home/home.component';
-@import '../../js/features/repoLookup/repoLookup.component';
-@import '../../js/features/repoLookup/userDisplay/userDisplay.component';
-@import '../../js/features/repoLookup/repoList/repoList.component';
-@import '../../js/features/repoLookup/usernameInput/usernameInput.component';

@@ -1,8 +1,8 @@
 import React from 'react';
-import NavbarComponent from '../../components/navbar/navbar.component';
-import FooterComponent from '../../components/footer/footer.component';
+import NavbarComponent from '../../components/navbar/navbar.comp';
+import FooterComponent from '../../components/footer/footer.comp';
 
-import styles from './navbarAndFooter.template.scss';
+import styles from './navbarAndFooter.temp.scss';
 
 export default class NavbarAndFooterTemplate extends React.Component {
     static propTypes = {

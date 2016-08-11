@@ -1,7 +1,7 @@
 import React from 'react';
-import ActiveLink from '../activeLink/activeLink.component';
+import ActiveLink from '../activeLink/activeLink.comp';
 
-import styles from './navbar.component.scss';
+import styles from './navbar.comp.scss';
 
 export default class NavbarComponent extends React.Component {
     render() {
