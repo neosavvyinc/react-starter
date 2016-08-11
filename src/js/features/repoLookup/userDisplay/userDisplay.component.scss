@@ -1,5 +1,7 @@
-.ns-user-display-container {
-  .content-container {
+@import '../../../../assets/styles/global-variables';
+
+.container {
+  .displayBox {
     width: 50%;
     min-width: 300px;
     margin: 0 auto 25px;
@@ -9,13 +11,13 @@
     align-items: center;
     background-color: $brand-white;
 
-    h4 {
+    .text {
       margin: 5px;
       padding: 0;
       color: $brand-primary;
     }
 
-    img {
+    .profilePic {
       width: 65px;
       height: auto;
       border-radius: 20px 0 20px 0;

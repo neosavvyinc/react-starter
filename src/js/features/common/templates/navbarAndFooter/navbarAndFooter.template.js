@@ -2,6 +2,8 @@ import React from 'react';
 import NavbarComponent from '../../components/navbar/navbar.component';
 import FooterComponent from '../../components/footer/footer.component';
 
+import styles from './navbarAndFooter.template.scss';
+
 export default class NavbarAndFooterTemplate extends React.Component {
     static propTypes = {
         children: React.PropTypes.element.isRequired
@@ -9,9 +11,9 @@ export default class NavbarAndFooterTemplate extends React.Component {
 
     render() {
         return (
-            <div className="ns-navbar-and-footer-template">
+            <div className={styles.container}>
                 <NavbarComponent />
-                <div className="content-container">
+                <div className={styles.content}>
                     {this.props.children}
                 </div>
                 <FooterComponent />

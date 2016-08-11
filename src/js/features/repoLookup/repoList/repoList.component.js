@@ -3,6 +3,8 @@ import { observer } from 'mobx-react';
 import provide from 'mobx-provide';
 import repoLookupStore from '../repoLookup.store';
 
+import styles from './repoList.component.scss';
+
 export class RepoListComponent extends React.Component {
     static propTypes = {
         repoLookupStore: React.PropTypes.object.isRequired
@@ -11,13 +13,16 @@ export class RepoListComponent extends React.Component {
     render() {
         const { repoData } = this.props.repoLookupStore;
         return (
-            <div className="ns-repo-list-container">
-                <ul>
+            <div className={styles.container}>
+                <ul className={styles.list}>
                     {
                         repoData.map(repo => {
                             return (
-                                <li key={repo.name}>
-                                    <a href={repo.html_url} target="_blank">{repo.name}</a>
+                                <li key={repo.name} className={styles.listItem}>
+                                    <a href={repo.html_url} target="_blank"
+                                        className={styles.link}>
+                                        {repo.name}
+                                    </a>
                                 </li>
                             );
                         })

@@ -1,27 +1,29 @@
 import React from 'react';
 
+import styles from './messageBox.component.scss';
+
 export default class MessageBox extends React.Component {
     static propTypes = {
         condition: React.PropTypes.bool.isRequired,
-        color: React.PropTypes.string.isRequired,
+        type: React.PropTypes.string.isRequired,
         message: React.PropTypes.string.isRequired
     };
 
     render() {
-        const { condition, color, message } = this.props;
+        const { condition, type, message } = this.props;
 
         let containerStyle;
 
-        switch (color) {
-            case 'red':
-                containerStyle = 'red-message-container';
+        switch (type) {
+            case 'error':
+                containerStyle = styles.error;
                 break;
             default:
-                containerStyle = 'primary-message-container';
+                containerStyle = styles.success;
         }
 
         return (
-            <div className="ns-message-box-container">
+            <div className={styles.container}>
             {
                 condition ?
                     <div className={containerStyle}>

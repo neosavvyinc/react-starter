@@ -5,6 +5,8 @@ import provide from 'mobx-provide';
 import repoLookupStore from '../repoLookup.store';
 import MessageBox from '../../common/components/messageBox/messageBox.component';
 
+import styles from './usernameInput.component.scss';
+
 export class UsernameInputComponent extends React.Component {
     static propTypes = {
         repoLookupStore: React.PropTypes.object.isRequired
@@ -34,23 +36,23 @@ export class UsernameInputComponent extends React.Component {
 
     render() {
         return (
-            <form onSubmit={this.onSubmit} className="ns-username-input-container">
+            <form onSubmit={this.onSubmit} className={styles.container}>
                 <input
                     onChange={this.onChange}
                     value={this.input}
-                    className="username-input"/>
-                <button type="submit" className="username-submit">Find User</button>
+                    className={styles.input}/>
+                <button type="submit" className={styles.button}>Find User</button>
                 <MessageBox
                     condition={this.props.repoLookupStore.isLoading}
-                    color="primary"
+                    type="success"
                     message="Loading..." />
                 <MessageBox
                     condition={this.props.repoLookupStore.unknownUser && !this.isInvalid}
-                    color="red"
+                    type="error"
                     message="Unknown User" />
                 <MessageBox
                     condition={this.isInvalid}
-                    color="red"
+                    type="error"
                     message="Invalid Input" />
             </form>
         );

@@ -4,7 +4,7 @@
 process.env.NODE_ENV = 'testing';
 
 // 2) return null from unwanted requires
-require.extensions['.css'] = function () {
+require.extensions['.scss'] = function () {
     return null;
 };
 require.extensions['.png'] = function () {

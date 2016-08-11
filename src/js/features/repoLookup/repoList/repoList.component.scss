@@ -1,22 +1,24 @@
-.ns-repo-list-container {
+@import '../../../../assets/styles/global-variables';
+
+.container {
   text-align: center;
 
-  ul {
+  .list {
     margin: 0;
     padding: 0;
-  }
 
-  li {
-    list-style: none;
-    margin-bottom: 10px;
+    .listItem {
+      list-style: none;
+      margin-bottom: 10px;
 
-    &:last-of-type {
-      margin-bottom: 30px;
-    }
+      &:last-of-type {
+        margin-bottom: 30px;
+      }
 
-    a {
-      text-decoration: none;
-      color: $brand-primary;
+      .link {
+        text-decoration: none;
+        color: $brand-primary;
+      }
     }
   }
 }

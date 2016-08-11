@@ -3,6 +3,8 @@ import { observer } from 'mobx-react';
 import provide from 'mobx-provide';
 import repoLookupStore from '../repoLookup.store';
 
+import styles from './userDisplay.component.scss';
+
 export class UserDisplayComponent extends React.Component {
     static propTypes = {
         repoLookupStore: React.PropTypes.object.isRequired
@@ -11,14 +13,14 @@ export class UserDisplayComponent extends React.Component {
     render() {
         const { userData } = this.props.repoLookupStore;
         return (
-            <div className="ns-user-display-container">
+            <div className={styles.container}>
                 {userData ?
-                    <div className="content-container">
-                        <img src={userData.avatar_url}/>
-                        <div className="textbox">
-                            <h4>{userData.login}</h4>
-                            <h4>{userData.name || 'mystery user'}</h4>
-                            <h4>{`${userData.public_repos} public repos`}</h4>
+                    <div className={styles.displayBox}>
+                        <img src={userData.avatar_url} className={styles.profilePic}/>
+                        <div className={styles.textbox}>
+                            <h4 className={styles.text}>{userData.login}</h4>
+                            <h4 className={styles.text}>{userData.name || 'mystery user'}</h4>
+                            <h4 className={styles.text}>{`${userData.public_repos} public repos`}</h4>
                         </div>
                     </div>
                     : null
