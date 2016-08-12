@@ -1,5 +1,5 @@
+import test from 'ava';
 import React from 'react';
-import { expect } from 'chai';
 import { shallow } from 'enzyme';
 
 import RepoLookupComponent from '../../../../src/js/features/repoLookup/repoLookup.comp';
@@ -7,30 +7,40 @@ import UsernameInputComponent from '../../../../src/js/features/repoLookup/usern
 import UserDisplayComponent from '../../../../src/js/features/repoLookup/userDisplay/userDisplay.comp';
 import RepoListComponent from '../../../../src/js/features/repoLookup/repoList/repoList.comp';
 
-describe('RepoLookupComponent', () => {
-    let wrapper;
+let wrapper;
 
-    beforeEach(() => {
-        wrapper = shallow(<RepoLookupComponent/>);
-    });
+test.beforeEach(() => {
+    wrapper = shallow(<RepoLookupComponent/>);
+});
 
-    it('should render a containing div', () => {
-        expect(wrapper.find('div').first().parents().length).to.equal(0);
-    });
+test('render a containing div', t => {
+    t.truthy(wrapper.is('div'));
+});
 
-    it('should render a single header', () => {
-        expect(wrapper.find('h1').length).to.equal(1);
-    });
+test('render an h1 as first child', t => {
+    const typeOfFirstChild = wrapper.first()
+        .children().first().type();
 
-    it('should render a UsernameInputComponent', () => {
-        expect(wrapper.find(UsernameInputComponent).length).to.equal(1);
-    });
+    t.is(typeOfFirstChild, 'h1');
+});
 
-    it('should render a UserDisplayComponent', () => {
-        expect(wrapper.find(UserDisplayComponent).length).to.equal(1);
-    });
+test('render a UsernameInputComponent as second child', t => {
+    const secondChildIsUsernameInput = wrapper.children()
+        .at(1).matchesElement(<UsernameInputComponent />);
 
-    it('should render a RepoListComponent', () => {
-        expect(wrapper.find(RepoListComponent).length).to.equal(1);
-    });
+    t.truthy(secondChildIsUsernameInput);
+});
+
+test('render a UserDisplayComponent as third child', t => {
+    const thirdChildIsUsernameDisplay = wrapper.children()
+        .at(2).matchesElement(<UserDisplayComponent />);
+
+    t.truthy(thirdChildIsUsernameDisplay);
+});
+
+test('render a RepoListComponent as fourth child', t => {
+    const fourthChildIsRepoList = wrapper.children()
+        .at(3).matchesElement(<RepoListComponent />);
+
+    t.truthy(fourthChildIsRepoList);
 });

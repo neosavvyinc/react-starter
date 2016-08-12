@@ -1,5 +1,5 @@
+import test from 'ava';
 import React from 'react';
-import { expect } from 'chai';
 import { shallow } from 'enzyme';
 import _ from 'lodash';
 
@@ -8,72 +8,70 @@ import repoLookupStore from '../../../../../src/js/features/repoLookup/repoLooku
 
 /* eslint-disable camelcase */
 
-describe('UserDisplayComponent', () => {
-    const userData = {
-        avatar_url: 'avatar_url',
-        login: 'login',
-        name: 'name',
-        public_repos: 20
-    };
+const userData = {
+    avatar_url: 'avatar_url',
+    login: 'login',
+    name: 'name',
+    public_repos: 20
+};
 
-    repoLookupStore.userData = userData;
+repoLookupStore.userData = userData;
 
-    let wrapper;
+let wrapper;
 
-    beforeEach(() => {
-        wrapper = shallow(<UserDisplayComponent repoLookupStore={repoLookupStore} />);
-    });
+test.beforeEach(() => {
+    wrapper = shallow(<UserDisplayComponent repoLookupStore={repoLookupStore} />);
+});
 
-    it('should render a containing div', () => {
-        expect(wrapper.find('div').first().parents().length).to.equal(0);
-    });
+test('render a containing div', t => {
+    t.truthy(wrapper.is('div'));
+});
 
-    it('should render an empty container if userData is null', () => {
-        const storeWithNullUser = _.assign({}, repoLookupStore, { userData: null });
+test('render a content container', t => {
+    const divIsFirstChild = wrapper.children().first().is('div');
 
-        wrapper.setProps({ repoLookupStore: storeWithNullUser });
+    t.truthy(divIsFirstChild);
+});
 
-        expect(wrapper.find('div').length).to.equal(1);
-    });
+test('render userData.avatar_url as an img', t => {
+    const expectedAvatar = <img src={userData.avatar_url} className={undefined}/>;
 
-    it('should render a content container', () => {
-        expect(
-            wrapper.find('div').first()
-                .children().first().type()
-        ).to.equal('div');
-    });
+    t.truthy(wrapper.contains(expectedAvatar));
+});
 
-    it('should render userData.avatar_url as an img', () => {
-        expect(wrapper.find(
-            `img[src=\'${userData.avatar_url}\']`
-        ).length).to.equal(1);
-    });
+test('render userData.login as an h4', t => {
+    const expectedHeader = <h4 className={undefined}>{userData.login}</h4>;
 
-    it('should render userData.login as an h4', () => {
-        expect(wrapper.contains(
-            <h4 className={undefined}>{userData.login}</h4>
-        )).to.equal(true);
-    });
+    t.truthy(wrapper.contains(expectedHeader));
+});
 
-    it('should render userData.name as an h4', () => {
-        expect(wrapper.contains(
-            <h4 className={undefined}>{userData.name}</h4>
-        )).to.equal(true);
-    });
+test('render userData.name as an h4', t => {
+    const expectedHeader = <h4 className={undefined}>{userData.name}</h4>;
 
-    it('should render userData.name as \'mystery user\' if userData.name is empty', () => {
-        const storeWithNoName = _.assign({}, repoLookupStore, { userData: { name: '' } });
+    t.truthy(wrapper.contains(expectedHeader));
+});
 
-        wrapper.setProps({ repoLookupStore: storeWithNoName });
+test('render userData.name as \'mystery user\' in an h4 if userData.name is falsy', t => {
+    const expectedHeader = <h4 className={undefined}>{'mystery user'}</h4>;
 
-        expect(wrapper.contains(
-            <h4 className={undefined}>{'mystery user'}</h4>
-        )).to.equal(true);
-    });
+    const storeWithNoName = _.assign({}, repoLookupStore, { userData: { name: '' } });
+    wrapper.setProps({ repoLookupStore: storeWithNoName });
 
-    it('should render userData.public_repos as an h4', () => {
-        expect(wrapper.contains(
-            <h4 className={undefined}>{`${userData.public_repos} public repos`}</h4>
-        )).to.equal(true);
-    });
+    t.truthy(wrapper.contains(expectedHeader));
+});
+
+test('render userData.public_repos as an h4', t => {
+    const expectedHeader = <h4 className={undefined}>{`${userData.public_repos} public repos`}</h4>;
+
+    t.truthy(wrapper.contains(expectedHeader));
+});
+
+test('render an empty container if userData is null', t => {
+    const storeWithNullUser = _.assign({}, repoLookupStore, { userData: null });
+
+    wrapper.setProps({ repoLookupStore: storeWithNullUser });
+
+    const numberOfChildren = wrapper.children().length;
+
+    t.is(numberOfChildren, 0);
 });

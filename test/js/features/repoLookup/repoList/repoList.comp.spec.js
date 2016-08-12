@@ -1,61 +1,76 @@
+import test from 'ava';
 import React from 'react';
-import { expect } from 'chai';
 import { shallow } from 'enzyme';
+import _ from 'lodash';
 
 import { RepoListComponent } from '../../../../../src/js/features/repoLookup/repoList/repoList.comp';
 import repoLookupStore from '../../../../../src/js/features/repoLookup/repoLookup.store';
 
 /* eslint-disable camelcase */
 
-describe('RepoListComponent', () => {
-    repoLookupStore.repoData = [
-        {
-            name: 'repo1',
-            html_url: 'html1'
-        },
-        {
-            name: 'repo2',
-            html_url: 'html2'
-        },
-        {
-            name: 'repo3',
-            html_url: 'html3'
-        }
-    ];
+const repoData = [
+    {
+        name: 'repo1',
+        html_url: 'html1'
+    },
+    {
+        name: 'repo2',
+        html_url: 'html2'
+    },
+    {
+        name: 'repo3',
+        html_url: 'html3'
+    }
+];
 
-    const { repoData } = repoLookupStore;
-    let wrapper;
+repoLookupStore.repoData = repoData;
 
-    beforeEach(() => {
-        wrapper = shallow(<RepoListComponent repoLookupStore={repoLookupStore} />);
+let wrapper;
+
+test.beforeEach(() => {
+    wrapper = shallow(<RepoListComponent repoLookupStore={repoLookupStore} />);
+});
+
+test('render a containing div', t => {
+    t.truthy(wrapper.is('div'));
+});
+
+test('render a ul as first and only child of the container', t => {
+    const containerChildren = wrapper.children();
+    const typeOfFirstChild = containerChildren.first().type();
+    const numberOfChildren = containerChildren.length;
+
+    t.is(typeOfFirstChild, 'ul');
+    t.is(numberOfChildren, 1);
+});
+
+test('render an li in the ul for each repo in repoData', t => {
+    t.plan(3);
+
+    const listChildren = wrapper.find('ul').children();
+
+    repoData.forEach((repo, index) => {
+        const expectedElement = (
+            <li key={repo.name} className={undefined}>
+                <a href={repo.html_url} target="_blank"
+                    className={undefined}>
+                    {repo.name}
+                </a>
+            </li>
+        );
+
+        const doesChildAtIndexMatchExpected = listChildren.at(index).matchesElement(expectedElement);
+
+        t.truthy(doesChildAtIndexMatchExpected);
     });
+});
 
-    it('should render a containing div', () => {
-        expect(wrapper.find('div').first().parents().length).to.equal(0);
-    });
+test('render an empty ul if repoData is empty', t => {
+    const storeWithEmptyRepoList = _.assign({}, repoLookupStore, { repoData: [] });
 
-    it('should render an unordered list', () => {
-        expect(wrapper.find('ul').length).to.equal(1);
-    });
+    wrapper.setProps({ repoLookupStore: storeWithEmptyRepoList });
 
-    it('should render an li for each repo in repoData', () => {
-        repoData.forEach(repo => {
-            expect(wrapper.contains(
-                <li className={undefined}>
-                    <a href={repo.html_url} target="_blank"
-                        className={undefined}>
-                        {repo.name}
-                    </a>
-                </li>
-            )).to.equal(true);
-        });
-    });
+    const numberOfListChildren = wrapper.find('ul').children().length;
 
-    it('should render an empty unordered list if repoData is empty', () => {
-        repoLookupStore.repoData = [];
-
-        wrapper.setProps({ repoLookupStore });
-
-        expect(wrapper.contains(<ul className={undefined}></ul>)).to.equal(true);
-    });
+    t.is(numberOfListChildren, 0);
 });

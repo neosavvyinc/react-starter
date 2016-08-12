@@ -1,42 +1,54 @@
+import test from 'ava';
 import React from 'react';
-import { expect } from 'chai';
 import { shallow } from 'enzyme';
 
 import ActiveLink from '../../../../../../src/js/features/common/components/activeLink/activeLink.comp';
 import NavbarComponent from '../../../../../../src/js/features/common/components/navbar/navbar.comp';
 
-describe('NavbarComponent', () => {
-    let wrapper;
+let wrapper;
 
-    beforeEach(() => {
-        wrapper = shallow(<NavbarComponent />);
-    });
+test.beforeEach(() => {
+    wrapper = shallow(<NavbarComponent />);
+});
 
-    it('should render a navbar container', () => {
-        expect(wrapper.find('nav').length).to.equal(1);
-    });
+test('render a navbar container', t => {
+    t.truthy(wrapper.is('nav'));
+});
 
-    it('should render a nav list within the container', () => {
-        expect(wrapper.find('nav').children().find('ul[role=\'nav\']').length).to.equal(1);
-    });
+test('render a nav ul within the navbar', t => {
+    const isNavListFirstChild = wrapper.children()
+        .first().is('ul[role=\'nav\']');
 
-    it('should render an index link to Home', () => {
-        expect(wrapper.contains(
-            <li>
-                <ActiveLink to="/" onlyActiveOnIndex={true}>
-                    Home
-                </ActiveLink>
-            </li>
-        ));
-    });
+    t.truthy(isNavListFirstChild);
+});
 
-    it('should render a link to Repo Lookup', () => {
-        expect(wrapper.contains(
-            <li>
-                <ActiveLink to="/repoLookup">
-                    Repo Lookup
-                </ActiveLink>
-            </li>
-        ));
-    });
+test('in nav ul, render an index link to Home first', t => {
+    const indexLinkToHome = (
+        <li className={undefined}>
+            <ActiveLink to="/" className={undefined}
+                onlyActiveOnIndex={true}>
+                Home
+            </ActiveLink>
+        </li>
+    );
+
+    const doesFirstChildOfNavListMatch = wrapper.find('ul[role=\'nav\']')
+        .children().first().matchesElement(indexLinkToHome);
+
+    t.truthy(doesFirstChildOfNavListMatch);
+});
+
+test('in nav ul, render a link to repoLookup second', t => {
+    const linkToRepoLookup = (
+        <li className={undefined}>
+            <ActiveLink to="/repoLookup" className={undefined}>
+                Repo Lookup
+            </ActiveLink>
+        </li>
+    );
+
+    const doesSecondChildOfNavListMatch = wrapper.find('ul[role=\'nav\']')
+        .children().at(1).matchesElement(linkToRepoLookup);
+
+    t.truthy(doesSecondChildOfNavListMatch);
 });
