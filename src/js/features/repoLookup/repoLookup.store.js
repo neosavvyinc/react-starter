@@ -1,7 +1,5 @@
 import { observable, action } from 'mobx';
 import repoLookupComms from './repoLookup.comms';
-// the bluebird library is imported for more efficient promise handling
-import Promise from 'bluebird';
 
 // export the store's class for instantiation during testing
 export class RepoLookupStore {
