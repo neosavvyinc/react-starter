@@ -8,15 +8,15 @@
     "node": "6.3.0"
   },
   "scripts": {
-    "build": "NODE_ENV=production webpack --config src/config/webpack/webpack.config.js",
+    "build": "cross-env NODE_ENV=production webpack --config src/config/webpack/webpack.config.js",
     "lint": "eslint --config src/config/eslint/eslint.config.json src/js/**",
     "lint:test": "eslint --config src/config/eslint/eslint.config.json test/js/**",
     "lint:config": "eslint --config src/config/eslint/eslint.config.json src/config/**",
     "lint:server": "eslint --config src/config/eslint/eslint.config.json server/**",
     "setup": "node src/config/prompts/setup.js",
-    "start": "NODE_ENV=development webpack-dev-server --config src/config/webpack/webpack.config.js",
+    "start": "cross-env NODE_ENV=development webpack-dev-server --config src/config/webpack/webpack.config.js",
     "start:build": "node server/server.js",
-    "stats": "NODE_ENV=production webpack --config src/config/webpack/webpack.config.js --profile --json > webpack.stats.json",
+    "stats": "cross-env NODE_ENV=production webpack --config src/config/webpack/webpack.config.js --profile --json > webpack.stats.json",
     "test": "ava"
   },
   "repository": {
@@ -59,6 +59,7 @@
     "babel-preset-es2015": "6.9.0",
     "babel-preset-react": "6.11.1",
     "clean-webpack-plugin": "0.1.10",
+    "cross-env": "3.1.4",
     "css-loader": "0.23.1",
     "cssnano": "3.7.3",
     "enzyme": "2.4.1",
